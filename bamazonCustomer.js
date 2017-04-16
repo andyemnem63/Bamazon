@@ -2,7 +2,9 @@ var mysql = require('mysql');
 var Table = require('cli-table');
 var resString = '';
 var resJSON = '';
-var array = [];
+
+var columns = ['item_id', 'product_name','department_name','price','stock_quantity'];
+
 	//establish connection
 	var connection = mysql.createConnection({
 		host		:'localHost',
@@ -16,37 +18,37 @@ var array = [];
 connection.connect(function(err){
 	if(err) throw err;
 	console.log('connectin id' , connection.threadId);
-	displayTable();
+	queryDb();
 })
 
-//Query Data
-// var query = 'SELECT * FROM products';
+// Query Data
+function queryDb() {
+	
+	var query = 'SELECT * FROM products';
 
-// connection.query(query,function(err,res,fields){
-// 	if(err) throw err;
-// 	//Converts to string
-// 	resString = JSON.stringify(res,null,2);
-// 	//Convert to JSON
-// 	resJSON  = JSON.parse(resString);
-// 	//Testing
-// 	resJSON[0].product_name;
-// });
-
-function displayTable() {
-	//Creates Table
-	//==========================================
-	// instantiate 
-	var table = new Table({
-	    head: ['item_id', 'product_name','department_name','price','stock_quanity'], 
-	    colWidths: [25, 25, 25 ,25 ,25]
+	connection.query(query,function(err,res,fields){
+		if(err) throw err;
+		//Converts to string
+		resString = JSON.stringify(res,null,2);
+		//Convert to JSON
+		resJSON  = JSON.parse(resString);
+		//Testing
+		var table = new Table({
+		    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
+		    colWidths: [25, 25, 25 ,25 ,25]
+		});
+		for(var i = 0; i< resJSON.length; i++){
+			//Creates a new array
+			var newArray = new Array();
+			//adds content table
+			table.push(newArray);
+			//Adds content to new array of Nth row
+			for(var j = 0; j < columns.length; j++){
+				newArray.push(resJSON[i][columns[j]]);
+			}
+		}
+		//Displays Table in terminal
+		console.log(table.toString());
 	});
-
-	//Adds Content to table  
-	// table is an Array, so you can `push`, `unshift`, `splice` and friends 
-	table.push(
-	    ['First value', 'Second value', 'First value', 'Second value', 'Second value'],
-	    ['First value', 'Second value', 'First value', 'Second value', 'Second value']
-	);
-	console.log(table.toString());
 
 }

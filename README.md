@@ -16,6 +16,7 @@ If you haven't written a markdown file yet, click here for a rundown, or just ta
 Instructions
 
 Challenge #1: Customer View (Minimum Requirement)
+==============================================================
 
 Create a MySQL Database called Bamazon.
 
@@ -49,8 +50,9 @@ However, if your store does have enough of the product, you should fulfill the c
 This means updating the SQL database to reflect the remaining quantity.
 Once the update goes through, show the customer the total cost of their purchase.
 If this activity took you between 8-10 hours, then you've put enough time into this assignment. Feel free to stop here -- unless you want to take on the next challenge.
-Challenge #2: Manager View (Next Level)
 
+Challenge #2: Manager View (Next Level)
+============================================
 Create a new Node application called bamazonManager.js. Running this application will:
 
 List a set of menu options:
@@ -68,8 +70,9 @@ If a manager selects Add to Inventory, your app should display a prompt that wil
 If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
 
 If you finished Challenge #2 and put in all the hours you were willing to spend on this activity, then rest easy! Otherwise continue to the next and final challenge.
-Challenge #3: Supervisor View (Final Level)
 
+Challenge #3: Supervisor View (Final Level)
+===========================================================
 Create a new MySQL table called departments. Your table should include the following columns:
 
 department_id
