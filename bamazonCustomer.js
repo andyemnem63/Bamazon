@@ -18,15 +18,15 @@ var columns = ['item_id', 'product_name','department_name','price','stock_quanti
 connection.connect(function(err){
 	if(err) throw err;
 	console.log('connectin id' , connection.threadId);
-	queryDb();
+	displayTable();
 })
 
 // Query Data
-function queryDb() {
+function displayTable() {
 	
 	var query = 'SELECT * FROM products';
 
-	connection.query(query,function(err,res,fields){
+	connection.query(query,function(err,res,fields) {
 		if(err) throw err;
 		//Converts to string
 		resString = JSON.stringify(res,null,2);
@@ -37,7 +37,7 @@ function queryDb() {
 		    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
 		    colWidths: [25, 25, 25 ,25 ,25]
 		});
-		for(var i = 0; i< resJSON.length; i++){
+		for(var i = 0; i< resJSON.length; i++) {
 			//Creates a new array
 			var newArray = new Array();
 			//adds content table
