@@ -1,5 +1,8 @@
+//NPM packages
 var mysql = require('mysql');
 var Table = require('cli-table');
+var inquirer = require('inquirer');
+
 var resString = '';
 var resJSON = '';
 
@@ -19,8 +22,7 @@ connection.connect(function(err){
 	if(err) throw err;
 	console.log('connectin id' , connection.threadId);
 	displayTable();
-})
-
+});
 // Query Data
 function displayTable() {
 	
@@ -40,7 +42,7 @@ function displayTable() {
 		for(var i = 0; i< resJSON.length; i++) {
 			//Creates a new array
 			var newArray = new Array();
-			//adds content table
+			//adds content to table
 			table.push(newArray);
 			//Adds content to new array of Nth row
 			for(var j = 0; j < columns.length; j++){
@@ -49,6 +51,21 @@ function displayTable() {
 		}
 		//Displays Table in terminal
 		console.log(table.toString());
+		customerRequest();
 	});
 
+}
+
+function customerRequest() {
+	//Ask customer for id input
+	inquirer.prompt([	
+			{
+				type:'input',
+				name: 'id',
+				message: 'What is the ID of the product you would like to buy?'
+			}
+		])
+		.then(function(answer) {
+			console.log(answer.id);
+		});
 }
