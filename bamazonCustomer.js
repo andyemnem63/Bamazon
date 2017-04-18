@@ -59,13 +59,48 @@ function displayTable() {
 function customerRequest() {
 	//Ask customer for id input
 	inquirer.prompt([	
-			{
-				type:'input',
-				name: 'id',
-				message: 'What is the ID of the product you would like to buy?'
-			}
-		])
-		.then(function(answer) {
-			console.log(answer.id);
-		});
+				{ 
+					type:'input',
+					name: 'id',
+					message: 'What is the ID of the product you would like to buy?',
+					validate: function(value) {
+						var valid = !isNaN(parseFloat(value));
+						return valid || 'Please enter a number';
+					}
+				},
+				{
+					type:'input',
+					name:'quantity',
+					message:'How many would you like to buy?',
+					validate: function(value) {
+						var valid = !isNaN(parseFloat(value));
+						return valid || 'Please enter a number';
+					} 
+				}
+	])
+	.then(function(answer) {
+		console.log('Product id' ,answer.id);
+		console.log('quantity' , answer.quantity);
+		checkQuantity(answer.id, answer.quantity);
+	});
+}
+
+function checkQuantity(id, quantity) {
+	var query = "SELECT stock_quantity FROM products WHERE ?"
+
+	connection.query(query,{
+		item_id: id
+	}, function(err,res,fields) {
+		if(err) throw err;
+		var stockJSON = JSON.stringify(res,null,2);
+		var stockParsed = JSON.parse(stockJSON);
+		var stockQuantity = stockParsed[0].stock_quantity;
+		//If quantity in Database is greater then users quantity request ....
+		if(stockQuantity >= quantity){
+			//Do something
+		}
+		else {
+			console.log('Insufficient quantity!');
+		}
+	})
 }
