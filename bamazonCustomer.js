@@ -39,7 +39,7 @@ function displayTable() {
 			    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
 			    colWidths: [25, 25, 25 ,25 ,25]
 			});
-			for(var i = 0; i< resJSON.length; i++) {
+			for(var i = 0; i < resJSON.length; i++) {
 				//Creates a new array
 				var newArray = new Array();
 				//adds content to table
