@@ -3,6 +3,7 @@ var mysql = require('mysql');
 var Table = require('cli-table');
 var inquirer = require('inquirer');
 
+var promptBool = true;
 var resString = '';
 var resJSON = '';
 
@@ -27,32 +28,33 @@ connection.connect(function(err){
 function displayTable() {
 	
 	var query = 'SELECT * FROM products';
-
-	connection.query(query,function(err,res,fields) {
-		if(err) throw err;
-		//Converts to string
-		resString = JSON.stringify(res,null,2);
-		//Convert to JSON
-		resJSON  = JSON.parse(resString);
-		//Testing
-		var table = new Table({
-		    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
-		    colWidths: [25, 25, 25 ,25 ,25]
-		});
-		for(var i = 0; i< resJSON.length; i++) {
-			//Creates a new array
-			var newArray = new Array();
-			//adds content to table
-			table.push(newArray);
-			//Adds content to new array of Nth row
-			for(var j = 0; j < columns.length; j++){
-				newArray.push(resJSON[i][columns[j]]);
+		connection.query(query,function(err,res,fields) {
+			if(err) throw err;
+			//Converts to string
+			resString = JSON.stringify(res,null,2);
+			//Convert to JSON
+			resJSON  = JSON.parse(resString);
+			//Testing
+			var table = new Table({
+			    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
+			    colWidths: [25, 25, 25 ,25 ,25]
+			});
+			for(var i = 0; i< resJSON.length; i++) {
+				//Creates a new array
+				var newArray = new Array();
+				//adds content to table
+				table.push(newArray);
+				//Adds content to new array of Nth row
+				for(var j = 0; j < columns.length; j++){
+					newArray.push(resJSON[i][columns[j]]);
+				}
 			}
-		}
-		//Displays Table in terminal
-		console.log(table.toString());
-		customerRequest();
-	});
+			//Displays Table in terminal
+			console.log(table.toString());
+			if(true === promptBool){
+				customerRequest();
+			}
+		});
 
 }
 
@@ -90,17 +92,33 @@ function checkQuantity(id, quantity) {
 
 	connection.query(query,{
 		item_id: id
-	}, function(err,res,fields) {
+	}, 
+	function(err,res,fields) {
 		if(err) throw err;
 		var stockJSON = JSON.stringify(res,null,2);
 		var stockParsed = JSON.parse(stockJSON);
 		var stockQuantity = stockParsed[0].stock_quantity;
+		
 		//If quantity in Database is greater then users quantity request ....
-		if(stockQuantity >= quantity){
-			//Do something
-		}
+		if(stockQuantity >= quantity) {
+			var query = 'UPDATE products SET ? WHERE ?'
+			//Update database
+			connection.query(query,[
+			{
+				//Subtract quantity in database from users request quantity
+				stock_quantity: stockQuantity - quantity
+			},
+			{
+				//product id
+				item_id: id
+			
+			}], function(err,res,fields){
+				promptBool = false;
+				displayTable();
+			});
+		}	
 		else {
 			console.log('Insufficient quantity!');
 		}
-	})
+	});
 }
