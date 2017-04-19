@@ -2,12 +2,7 @@
 var mysql = require('mysql');
 var Table = require('cli-table');
 var inquirer = require('inquirer');
-
-var resString = '';
-var resJSON = '';
-//Counter
 var count = 0;
-
 var columns = ['item_id', 'product_name','department_name','price','stock_quantity'];
 
 	//establish connection
@@ -32,9 +27,9 @@ function displayTable() {
 		connection.query(query,function(err,res,fields) {
 			if(err) throw err;
 			//Converts to string
-			resString = JSON.stringify(res,null,2);
+		var resString = JSON.stringify(res,null,2);
 			//Convert to JSON
-			resJSON  = JSON.parse(resString);
+		var	resJSON  = JSON.parse(resString);
 			//Testing
 			var table = new Table({
 			    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
@@ -54,7 +49,6 @@ function displayTable() {
 			console.log(table.toString());
 			customerRequest();
 		});
-
 }
 
 function customerRequest() {
@@ -66,13 +60,11 @@ function customerRequest() {
 					message: 'What would you like to do?',
 					choices:['View Low Inventory','Add new product', 'Add quantity to existing item']
 				}
-
 	])
 	.then(function(answer) {
 		if(answer.choice === 'Add quantity to existing item'){
 			updateItem();
 		} 
-
 	});
 }
 
