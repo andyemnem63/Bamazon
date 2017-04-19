@@ -26,23 +26,19 @@ function displayTable() {
 	var query = 'SELECT * FROM products';
 		connection.query(query,function(err,res,fields) {
 			if(err) throw err;
-			//Converts to string
-		var resString = JSON.stringify(res,null,2);
-			//Convert to JSON
-		var	resJSON  = JSON.parse(resString);
 			//Testing
 			var table = new Table({
 			    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
 			    colWidths: [25, 25, 25 ,25 ,25]
 			});
-			for(var i = 0; i< resJSON.length; i++) {
+			for(var i = 0; i< res.length; i++) {
 				//Creates a new array
 				var newArray = new Array();
 				//adds content to table
 				table.push(newArray);
 				//Adds content to new array of Nth row
 				for(var j = 0; j < columns.length; j++){
-					newArray.push(resJSON[i][columns[j]]);
+					newArray.push(res[i][columns[j]]);
 				}
 			}
 			//Displays Table in terminal
@@ -51,20 +47,58 @@ function displayTable() {
 		});
 }
 
+function displayLowTable() {
+	var lowCount = 5;
+	var query = 'SELECT * FROM products WHERE stock_quantity <' + lowCount;
+		connection.query(query,function(err,res,fields) {
+				if(err) throw err;
+				//Testing
+				var table = new Table({
+				    head: ['item_id', 'product_name','department_name','price','stock_quantity'], 
+				    colWidths: [25, 25, 25 ,25 ,25]
+				});
+				//console.log(res[0].stock_quantity);
+				for(var i = 0; i< res.length; i++) {
+					//Creates a new array
+					var newArray = new Array();
+					//adds content to table
+					table.push(newArray);
+					//Adds content to new array of Nth row
+					for(var j = 0; j < columns.length; j++){
+						newArray.push(res[i][columns[j]]);
+					}
+				}
+				//Displays Table in terminal
+				console.log(table.toString());
+				customerRequest();
+			});
+}
+
 function customerRequest() {
 	//Ask customer for id input
 	inquirer.prompt([	
-				{ 
-					type:'rawlist',
-					name: 'choice',
-					message: 'What would you like to do?',
-					choices:['View Low Inventory','Add new product', 'Add quantity to existing item']
-				}
+		{ 
+			type:'rawlist',
+			name: 'choice',
+			message: 'What would you like to do?',
+			choices:['View Products for Sale','View Low Inventory','Add new product', 'Add quantity to existing item']
+		}
 	])
 	.then(function(answer) {
-		if(answer.choice === 'Add quantity to existing item'){
-			updateItem();
-		} 
+		switch(answer.choice) {
+			case 'View Products for Sale' :
+				displayTable();
+				break;
+			case 'View Low Inventory' :
+				displayLowTable();
+				break;
+			case 'Add new product' : 
+				addNewProduct()
+				break; 
+			case 'Add quantity to existing item' :
+				updateItem();
+				break;
+		}
 	});
 }
 
@@ -84,8 +118,6 @@ function updateItem() {
 				for(var i = 0; i <res.length;i++){
 					if(res[i].product_name === answer.product){
 						//Testing Show products name
-						console.log('Product Name' , res[i].product_name);
-						console.log('count:' , count);
 						count++;
 					}
 				}
@@ -141,3 +173,43 @@ function updateItem() {
 	});
 }
 
+function addNewProduct() {
+	inquirer.prompt([
+		{
+			type:'input',
+			name:'product',
+			message:'What is the product name'
+		},
+		{
+			type:'input',
+			name:'department',
+			message:'What is the department name'
+		},
+		{
+			type:'input',
+			name:'price',
+			message:'How much does it cost'
+		},
+		{
+			type:'input',
+			name:'stockQty',
+			message:'How many do you want to add'
+		}
+	]).then(function(answer){
+		var product = answer.product;
+		var department = answer.department;
+		var price = answer.price;
+		var stockQty = answer.stockQty;
+		var post = {
+					product_name: product,
+					department_name: department ,
+					price: price,
+					stock_quantity:stockQty
+				   }
+		var query = 'INSERT INTO products SET ?';
+		connection.query(query,post,function(err,res,field) {
+			displayTable();
+		});
+	});
+
+}
