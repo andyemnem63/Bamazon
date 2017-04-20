@@ -11,11 +11,11 @@ The Mangager application will have the option to view the products for sale, vie
 * [inquirer ](https://www.npmjs.com/package/inquirer)
 
 ### Prerequisites
+![Alt text](assets/table.png?raw=true "Optional Title")
 
 What things you need to install the software and how to install them
 
 ```
-![Alt text](../assets/table.png "Optional Title")
 ```
 Give examples
 ```
