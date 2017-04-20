@@ -12,10 +12,10 @@ The Mangager application will have the option to view the products for sale, vie
 
 ### Prerequisites
 
+![Alt text](assets/table.png?raw=true "TABLE")
 What things you need to install the software and how to install them
 
 ```
-![Alt text](assets/table.png?raw=true "Optional Title")
 ```
 Give examples
 ```
