@@ -7,7 +7,7 @@ The Mangager application will have the option to view the products for sale, vie
 ## Watch a preview of how the app!
 
 ```
-(https://www.npmjs.com/package/cli-table)
+[Bamazon Preview](https://www.npmjs.com/package/cli-table)
 ```
 
 ## Packages
