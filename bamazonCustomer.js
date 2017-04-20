@@ -3,7 +3,6 @@ var mysql = require('mysql');
 var Table = require('cli-table');
 var inquirer = require('inquirer');
 
-var promptBool = true;
 var resString = '';
 var resJSON = '';
 
@@ -51,9 +50,7 @@ function displayTable() {
 			}
 			//Displays Table in terminal
 			console.log(table.toString());
-			if(true === promptBool){
-				customerRequest();
-			}
+			customerRequest();
 		});
 
 }
