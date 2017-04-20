@@ -4,7 +4,9 @@ The Customer application will give him/her the option to buy from the bamazon st
 
 The Mangager application will have the option to view the products for sale, view products that are low in stock quantity, add a new product, and add quantity to existing products 
 
-## Watch a preview of the Customer Bamazon App!
+## Watch a preview of the Bamazon App!
+
+[Manager Bamazon Preview](https://youtu.be/_9VAiOPEoEU)
 
 [Customer Bamazon Preview](https://youtu.be/8PqQWWIKFxw)
 
