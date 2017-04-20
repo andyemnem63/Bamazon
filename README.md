@@ -15,12 +15,14 @@ The Mangager application will have the option to view the products for sale, vie
 TABLE
 ![Alt text](assets/table.png?raw=true "TABLE")
 
-Options
+####Options
 
 ![Alt text](assets/customer.png?raw=true "TABLE")
 
 ## Manager Application
-Options
+
+####Options
+
 ![Alt text](assets/manage.png?raw=true "TABLE")
 
 
