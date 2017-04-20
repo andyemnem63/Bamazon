@@ -4,6 +4,12 @@ The Customer application will give him/her the option to buy from the bamazon st
 
 The Mangager application will have the option to view the products for sale, view products that are low in stock quantity, add a new product, and add quantity to existing products 
 
+## Watch a preview of how the app!
+
+```
+(https://www.npmjs.com/package/cli-table)
+```
+
 ## Packages
 
 * [cli-table ](https://www.npmjs.com/package/cli-table)
