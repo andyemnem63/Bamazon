@@ -78,8 +78,6 @@ function customerRequest() {
 				}
 	])
 	.then(function(answer) {
-		console.log('Product id' ,answer.id);
-		console.log('quantity' , answer.quantity);
 		checkQuantity(answer.id, answer.quantity);
 	});
 }

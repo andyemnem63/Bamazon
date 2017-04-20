@@ -10,18 +10,16 @@ The Mangager application will have the option to view the products for sale, vie
 * [mysql](https://www.npmjs.com/package/mysql)
 * [inquirer ](https://www.npmjs.com/package/inquirer)
 
-### Prerequisites
+## Customer Application
 
+TABLE
 ![Alt text](assets/table.png?raw=true "TABLE")
-What things you need to install the software and how to install them
+Options
+![Alt text](assets/customer.png?raw=true "TABLE")
 
-```
-```
-Give examples
-```
-
-
-
+## Manager Application
+Options
+![Alt text](assets/manager.png?raw=true "TABLE")
 
 
 
