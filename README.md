@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Packages
 
-* [cli-table ]https://www.npmjs.com/package/cli-table)
+* [cli-table ](https://www.npmjs.com/package/cli-table)
 * [mysql](https://www.npmjs.com/package/mysql)
 * [inquirer ](https://www.npmjs.com/package/inquirer)
 
